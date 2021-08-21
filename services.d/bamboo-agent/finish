@@ -1,0 +1,4 @@
+#!/usr/bin/execlineb -S0
+if { s6-test $# -ne 0 }  # if we exited with a nonzero code
+if { s6-test ${1} -ne 256 }  # 256 means we were killed by a signal, eg from s6-svc
+s6-svscanctl -t /var/run/s6/services

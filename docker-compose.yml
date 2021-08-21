@@ -1,0 +1,14 @@
+version: "3"
+services:
+
+  agent:
+    build: ./
+    image: dcagatay/bamboo-agent-base-dind:latest
+    hostname: bamboo-agent01
+    privileged: true
+    volumes:
+      - ./data/agent-home:/home/bamboo/bamboo-agent-home
+    environment:
+      BAMBOO_SERVER_URL: "http://192.168.35.5:8085"
+      # SECURITY_TOKEN: "xxx"
+    # restart: unless-stopped

@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+set -e
+mkdir -p ${BAMBOO_USER_HOME}/bamboo-agent-home/bin
+exec ${BAMBOO_USER_HOME}/runAgent.sh
