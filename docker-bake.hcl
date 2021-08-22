@@ -21,6 +21,8 @@ target "8.0.0" {
         "docker.io/${IMAGE_NAME}:latest",
         "docker.io/${IMAGE_NAME}:${BAMBOO_AGENT_VERSION}"
     ]
+    output = ["docker"]
+
 }
 
 // target "7.0.0" {
@@ -31,4 +33,5 @@ target "8.0.0" {
 //     tags = [
 //         "docker.io/${IMAGE_NAME}:7.0.0"
 //     ]
+//     output = ["docker"]
 // }

@@ -22,7 +22,7 @@ RUN set -x && \
 WORKDIR ${BAMBOO_USER_HOME}
 
 COPY bamboo-update-capability.sh runAgent.sh ${BAMBOO_USER_HOME}/
-COPY services.d/* /etc/services.d/
+COPY services.d /etc/services.d
 
 # Install Java 11
 ARG JAVA_11_DOWNLOAD_URL="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.11%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.11_9.tar.gz"
