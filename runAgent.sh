@@ -15,7 +15,7 @@ if [ ! -f ${BAMBOO_CAPABILITIES} ]; then
 fi
 
 if [ -z ${SECURITY_TOKEN+x} ]; then
-    exec java ${VM_OPTS:-} -jar "${AGENT_JAR}" "${BAMBOO_SERVER_URL}/agentServer/"
+    exec java ${VM_OPTS:-} -Dbamboo.home="${BAMBOO_AGENT_HOME}" -jar "${AGENT_JAR}" "${BAMBOO_SERVER_URL}/agentServer/"
 else
-    exec java ${VM_OPTS:-} -jar "${AGENT_JAR}" "${BAMBOO_SERVER_URL}/agentServer/" -t "${SECURITY_TOKEN}"
+    exec java ${VM_OPTS:-} -Dbamboo.home="${BAMBOO_AGENT_HOME}" -jar "${AGENT_JAR}" "${BAMBOO_SERVER_URL}/agentServer/" -t "${SECURITY_TOKEN}"
 fi
