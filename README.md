@@ -1,30 +1,32 @@
-# Bamboo Agent Docker Image with Docker-in-Docker Support
+# Bamboo Agent Docker Image with Docker in Docker (dind) Support
 
-This Bamboo agent Docker image is based on Atlassian's [`docker-bamboo-agent-base`](https://bitbucket.org/atlassian-docker/docker-bamboo-agent-base/).
+A customizable Bamboo agent Docker image with Docker in Docker support for your CI/CD workloads.
 
+It is based on [`dcagatay/ubuntu-dind`](https://github.com/dogukancagatay/docker-ubuntu-dind) image.
 
-Please check their documentation for more information.
+## Features
 
-## Overview
-
-This Docker image makes it easy to get an instance of Bamboo Agent up and running. This minimal image is suitable for customization and contains only AdoptOpenJDK 11, Bamboo Agent and Docker (as dind).
-
-### Features
-
-- Docker (as docker-in-docker)
+- Docker
 - docker-compose
 - s6-overlay
 
-
 ## Quick Start
 
-For initialization, set `BAMBOO_SERVER_URL` environment variable, setup volume mapping for container's `/home/bamboo/bamboo-agent-home` directory, start the Docker container and follow Bamboo agent's instructions.
+For a basic quick start;
+
+- Set `BAMBOO_SERVER_URL` environment variable.
+- Setup a volume mapping for container's `/home/bamboo/bamboo-agent-home` directory.
+- Start the Docker container
+
+
+For the initialization (authorization to Bamboo server), follow container logs for instructions of Bamboo agent.
+
 
 ```bash
-docker run --rm -it -v "$PWD/data:/home/bamboo/bamboo-agent-home" -e "BAMBOO_SERVER_URL=http://bamboo-server.example.com:8065" dcagatay/bamboo-agent-base-dind:latest
+docker run --privileged --rm -it -v "$PWD/data:/home/bamboo/bamboo-agent-home" -e "BAMBOO_SERVER_URL=http://bamboo-server.example.com:8065" dcagatay/bamboo-agent-base-dind:latest
 ```
 
-You can also use `docker-compose.yml` or any other container running environment in the same way.
+You can also use `docker-compose.yml` or any other container environment in the same way.
 
 ### Environment Variables
 
@@ -62,3 +64,15 @@ Example of extending the agent base image by Maven and Git:
         apt-get install git -y
     RUN ${BAMBOO_USER_HOME}/bamboo-update-capability.sh "system.builder.mvn3.Maven 3.6" /usr/share/maven
     RUN ${BAMBOO_USER_HOME}/bamboo-update-capability.sh "system.git.executable" /usr/bin/git
+
+### Build variables
+
+You can customize
+
+- `BAMBOO_AGENT_VERSION`: Version of the agent.
+- `JAVA_11_DOWNLOAD_URL`: Download URL for AdoptOpenJDK 11 that will run Bamboo agent. You can customize the version.
+- `BAMBOO_AGENT_DOWNLOAD_URL`: Download URL of Bamboo agent. It is templated with `BAMBOO_AGENT_VERSION`. Modify the agent version instead.
+
+## Credits
+
+- Atlassian's Bamboo agent base image [`docker-bamboo-agent-base`](https://bitbucket.org/atlassian-docker/docker-bamboo-agent-base/).
