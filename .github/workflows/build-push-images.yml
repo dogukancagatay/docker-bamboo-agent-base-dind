@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - 'master'
+    paths:
+      - '!docker-compose.yml'
+      - '!LICENSE'
+      - '!README.md'
+      - '!.gitignore'
 
 jobs:
   bake:
