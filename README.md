@@ -50,7 +50,7 @@ For the list of all configuration properties, see [Wrapper configuration propert
 In order to persist Agent data, you should map `/home/bamboo/bamboo-agent-home` to local directory or Docker Volume.
 
 
-## Extending the image
+## Extending the Base Image
 
 If you need additional capabilities you can extend the image to suit your needs.
 
@@ -58,16 +58,20 @@ Note that the image uses s6-overlay, please do your modifications according to s
 
 Example of extending the agent base image by Maven and Git:
 
-    FROM dcagatay/bamboo-agent-base-dind
-    RUN apt-get update && \
-        apt-get install maven -y && \
-        apt-get install git -y
-    RUN ${BAMBOO_USER_HOME}/bamboo-update-capability.sh "system.builder.mvn3.Maven 3.6" /usr/share/maven
-    RUN ${BAMBOO_USER_HOME}/bamboo-update-capability.sh "system.git.executable" /usr/bin/git
+```Dockerfile
+FROM dcagatay/bamboo-agent-base-dind
+RUN apt-get update && \
+    apt-get install maven -y && \
+    apt-get install git -y
+RUN ${BAMBOO_USER_HOME}/bamboo-update-capability.sh "system.builder.mvn3.Maven 3.6" /usr/share/maven
+RUN ${BAMBOO_USER_HOME}/bamboo-update-capability.sh "system.git.executable" /usr/bin/git
+```
+
+A complete example can be found in [dcagatay/java-node-bamboo-agent](https://hub.docker.com/r/dcagatay/java-node-bamboo-agent) Docker image.
 
 ### Build variables
 
-You can customize
+The image can be customized with the following build arguments.
 
 - `BAMBOO_AGENT_VERSION`: Version of the agent.
 - `JAVA_11_DOWNLOAD_URL`: Download URL for AdoptOpenJDK 11 that will run Bamboo agent. You can customize the version.
